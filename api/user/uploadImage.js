@@ -15,13 +15,13 @@ routerUploadImage.post("/", upload.single("image"), async (req, res) => {
 
         const token = req.body.jwt;
         if(!token) {
-            res.json({
+            return res.json({
                 message: "Người dùng chưa đăng nhập",
                 success: false
             });
         }
         if(isTokenExpired(token)){
-            res.json({
+            return res.json({
                 message: "Người dùng hết phiên đăng nhập",
                 success: false
             });
@@ -29,13 +29,13 @@ routerUploadImage.post("/", upload.single("image"), async (req, res) => {
 
         const decode = verifyToken(token);
         const results = await connection.promise().query(`UPDATE users set user_img = '${cldRes.url}' where user_id = '${decode.id}'`)
-        res.json({
+        return res.json({
             message: cldRes,
             success: true
         });
     } catch (error) {
         console.log(error);
-        res.json({
+        return res.json({
             message: error.message,
             success: false
         });
