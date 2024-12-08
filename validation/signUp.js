@@ -1,6 +1,7 @@
 import Joi from "joi";
-//kiem tra xem signin signup da dung form chua
-export const singUpValidator = Joi.object({
+
+// Kiểm tra xem sign up đã đúng form chưa
+const signUpValidator = Joi.object({
     name: Joi.string().required().messages({
         'any.required': 'Tên là bắt buộc.',
         'string.empty': 'Tên không được để trống.',
@@ -34,18 +35,7 @@ export const singUpValidator = Joi.object({
     }),
     sex: Joi.required().messages({
         'any.required': 'Giới tính là bắt buộc.',
-    })
+    }),
 });
 
-export const signInValidator = Joi.object({
-    user__name: Joi.string().required().min(6).max(255).messages({
-        'any.required': 'Bạn chưa điền tên đăng nhập',
-        'string.min': 'Tên đăng nhập phải có ít nhất 6 ký tự.',
-        'string.max': 'Tên đăng nhập không được vượt quá 255 ký tự.',
-    }),
-    password: Joi.string().required().min(6).max(255).messages({
-        'any.required': 'Bạn chưa điền mật khẩu',
-        'string.min': 'Mật khẩu phải có ít nhất 6 ký tự.',
-        'string.max': 'Mật khẩu không được vượt quá 255 ký tự.',
-    }),
-})
+export default signUpValidator;
